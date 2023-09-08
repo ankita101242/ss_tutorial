@@ -2,7 +2,7 @@
 ============================================================================
 Name : 30.c
 Author : Ankita Agrawal
-Description: 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. 30. Write a program to run a script at a specific time using a Daemon process.
+Description: 30. Write a program to run a script at a specific time using a Daemon process.
 Date: 8th Sep, 2023.
 ============================================================================
 */
@@ -17,11 +17,11 @@ Date: 8th Sep, 2023.
 int main() {
     //Desired execution time
     struct tm desired_time;
-    desired_time.tm_hour = 11;  
-    desired_time.tm_min = 40;    
+    desired_time.tm_hour = 14;  
+    desired_time.tm_min = 24;    
     desired_time.tm_sec = 0;  
     desired_time.tm_mday = 8;  
-    desired_time.tm_mon = 9;  
+    desired_time.tm_mon = 8;  
     desired_time.tm_year = 2023-1900; 
     
       
@@ -75,12 +75,12 @@ int main() {
         
           
         // Execute the script 
-        execl("home/test/handson1/daemon.sh", "daemon.sh", NULL);
+        execl("/home/ankita/test/handson1/daemon.sh", "daemon.sh", NULL);
         perror("execl"); 
         return 1;
     }
     else{
-    sleep(10);
+  
      printf( "Parent process exits\n");
     }
     
