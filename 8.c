@@ -1,32 +1,48 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
+/*
+============================================================================
+Name : 8.c
+Author : Ankita Agrawal
+Description : 8. Write a program to open a file in read only mode, read line by line and display each line as it is read. 
+Close the file when end of file is reached.
+Date: 8th Sept, 2023.
+============================================================================
+*/
 
-int main(int argc,char *argv[] )
-{
-	int fd;
-	char buffer[200];
-	int read_bytes;
-	char *newline;
-	fd=open(argv[1],O_RDONLY);
+#include<stdio.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/stat.h>
+#include<fcntl.h>
+int main(int argc,char* argv[]){
+     int fd_read;
+     int flag=0;
+     char buf[200];
+     fd_read=open(argv[1],O_RDONLY);
+     int ind=0,read_char=0;
+     buf[0]='\0';
+     while(1){
 
-	if(fd==-1)
-		printf("ERROR OPENING FILE\n");
+     read_char=read(fd_read,&buf[ind],1);
 
-	read_bytes=read(fd,buffer,200);
-	if(read_bytes>0)
-	{
-		char *start=buffer;
-		while((newline=strchr(start,'\n'))!=NULL)
-		{
-			*newline='\0';
-			write(STDOUT_FILENO,start,strlen(start));
-			write(STDOUT_FILENO,"\n",1);
-			start=newline+1;
-	       }
+     if(buf[ind]=='\n')
+     {
+        write(STDOUT_FILENO,&buf,ind+1);
+
+	ind=-1;
+	for(int i=0;i<ind;i++){
+	buf[i]='\0';
 	}
-	close(fd);
-    return 0;
+     } 
+     ind++;
+     if(read_char==0)
+        break;
+     }
+
+
+     close(fd_read);
+     return 0;
 }
+

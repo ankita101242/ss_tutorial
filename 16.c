@@ -1,3 +1,13 @@
+/*
+============================================================================
+Name : 16.c
+Author : Ankita Agrawal
+Description : 16. Write a program to perform mandatory locking.
+                  a. Implement read lock
+Date: 8th Sept, 2023.
+============================================================================
+*/
+
 #include<stdio.h>
 #include<unistd.h>
 #include<fcntl.h>

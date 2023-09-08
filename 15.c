@@ -1,3 +1,13 @@
+/*
+============================================================================
+Name : 15.c
+Author : Ankita Agrawal
+Description : 15. Write a program to display the environmental variable of the user (use environ).
+Date: 8th Sept, 2023.
+============================================================================
+*/
+
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>

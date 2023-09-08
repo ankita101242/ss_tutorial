@@ -1,3 +1,13 @@
+/*
+============================================================================
+Name : 16wl.c
+Author : Ankita Agrawal
+Description : 16. Write a program to perform mandatory locking.
+ b. Implement write lock
+Date: 8th Sept, 2023.
+============================================================================
+*/
+
 #include<stdio.h>
 #include<unistd.h>
 #include<fcntl.h>

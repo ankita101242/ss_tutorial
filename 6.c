@@ -1,3 +1,13 @@
+/*
+============================================================================
+Name : 6.c
+Author : Ankita Agrawal
+Description : 6. Write a program to take input from STDIN and display on STDOUT. Use only read/write system calls
+Date: 8th Sept, 2023.
+============================================================================
+*/
+
+
 #include <stdio.h>
 #include <errno.h>
 #include <fcntl.h>
