@@ -1,30 +1,24 @@
-/*
-============================================================================
-Name : 15.c
-Author : Ankita Agrawal
-Description : 15. Write a program to display the environmental variable of the user (use environ).
-Date: 8th Sept, 2023.
-============================================================================
-*/
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
-
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-extern char **environ;
-int prefixMatch(const char *pre, const char *str)
-{
-	return strncmp(pre, str,strlen(pre))==0;
-}
 int main()
 {
-	char **env =environ;
-
-	while(*env !=NULL)
-	{
-		if(prefixMatch("USER",*env))
-			printf("%s\n",*env);
-		env++;
-	}
-return 0;
+        char buff[80];
+        int fd[2];
+        pipe(fd);
+        if(fork())
+        {
+                close(fd[0]);
+                printf("Enter message to the child: ");
+                scanf(" %[^\n]",buff);
+                write(fd[1],buff,sizeof(buff));
+        }
+        else
+        {
+                close(fd[1]);
+                read(fd[0],buff,sizeof(buff));
+                printf("Message from parent: %s\n",buff);
+        }
+        wait(0);
 }

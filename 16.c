@@ -1,38 +1,33 @@
-/*
-============================================================================
-Name : 16.c
-Author : Ankita Agrawal
-Description : 16. Write a program to perform mandatory locking.
-                  a. Implement read lock
-Date: 8th Sept, 2023.
-============================================================================
-*/
-
 #include<stdio.h>
 #include<unistd.h>
-#include<fcntl.h>
-#include<stdlib.h>
-#include<sys/types.h>
-#include<sys/stat.h>
+#include<sys/wait.h>
 
-int main()
+int main(void)
 {
-	struct flock lock;
-	int fd;
-	fd=open("db",O_CREAT | O_RDWR);
-	lock.l_type=F_RDLCK;
-	lock.l_whence=SEEK_SET;
-	lock.l_start=0;
-	lock.l_len=0;
-	lock.l_pid=getpid();
-	printf("Before entering into critical section\n");
-	fcntl(fd,F_SETLKW,&lock);
-	printf("Inside the critical section\n");
-	printf("Enter to unlock\n");
-	getchar();
-	printf("UNLOCKED\n");
-	lock.l_type=F_UNLCK;
-	fcntl(fd,F_SETLK,&lock);
-	printf("finish\n");
-}
+        char buff[80] , buff1[80] ;
+        int fd1[2]  , fd2[2] ;
 
+        pipe(fd1);
+        pipe(fd2);
+
+        if(!fork())
+        {
+                close(fd1[0]);//closing the read end of 1st pipe
+                printf("Enter message to the parent :");
+                scanf("%[^\n]" , buff);
+                write(fd1[1] , buff , sizeof(buff));
+                close(fd2[1]); // closing the write end of the 2nd pipe 
+                read(fd2[0]  , buff1 , sizeof(buff1)) ;
+               printf("Message from parent : %s\n" , buff1 );
+        }
+ else {
+              close(fd1[1]);//closing the write  end of 1st pipe
+              read(fd1[0] , buff , sizeof(buff));
+                printf("Message from the child : %s\n",buff);
+                close(fd2[0]); //closing the read end of the 2nd pipe
+               printf("Enter the message from the child:" );
+               scanf(" %[^\n]" , buff1);
+               write(fd2[1] , buff1 , sizeof(buff1));
+        }
+wait(0);
+}
