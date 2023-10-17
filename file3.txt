@@ -1,0 +1,4 @@
+original descriptor:3
+Duplicate descritor (dup):4
+Duplicate descriptor (dup2):7
+fcntl descriptor:8
